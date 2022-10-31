@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"github.com/stretchr/testify/require"
+	"github.com/voicurobert/simple_bank/db/sqlc"
 	"testing"
 )
 
@@ -17,9 +18,9 @@ func TestQueries_CreateEntry(t *testing.T) {
 	require.Equal(t, entry.Amount, account.Balance)
 }
 
-func createRandomEntry(t *testing.T) (Entry, Account, error) {
+func createRandomEntry(t *testing.T) (db.Entry, db.Account, error) {
 	account := createRandomAccount(t)
-	args := CreateEntryParams{
+	args := db.CreateEntryParams{
 		AccountID: account.ID,
 		Amount:    account.Balance,
 	}

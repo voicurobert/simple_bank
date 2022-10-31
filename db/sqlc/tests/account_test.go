@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/stretchr/testify/require"
+	"github.com/voicurobert/simple_bank/db/sqlc"
 	"github.com/voicurobert/simple_bank/util"
 	"testing"
 	"time"
@@ -13,8 +14,8 @@ func TestQueries_CreateAccount(t *testing.T) {
 	createRandomAccount(t)
 }
 
-func createRandomAccount(t *testing.T) Account {
-	args := CreateAccountParams{
+func createRandomAccount(t *testing.T) db.Account {
+	args := db.CreateAccountParams{
 		Owner:    util.RandomOwner(),
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
@@ -51,7 +52,7 @@ func TestQueries_GetAccount(t *testing.T) {
 func TestQueries_UpdateAccount(t *testing.T) {
 	account := createRandomAccount(t)
 
-	arg := UpdateAccountParams{
+	arg := db.UpdateAccountParams{
 		ID:      account.ID,
 		Balance: util.RandomMoney(),
 	}
@@ -85,7 +86,7 @@ func TestQueries_ListAccounts(t *testing.T) {
 		createRandomAccount(t)
 	}
 
-	arg := ListAccountsParams{
+	arg := db.ListAccountsParams{
 		Limit:  5,
 		Offset: 5,
 	}
